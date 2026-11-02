@@ -12,9 +12,9 @@ parameters:
 
     level: 4
 
+    treatPhpDocTypesAsCertain: false
+    reportUnmatchedIgnoredErrors: false
+
     ignoreErrors:
         - '#Access to an undefined property Illuminate\\Database\\Eloquent\\Model::#'
-        - '#uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory#'
-        - '#return type with generic class Illuminate\\Database\\Eloquent\\Relations#'
-        - '#Parameter \#1 \$stream of function (fputcsv|fprintf|fclose) expects resource, resource\|false given#'
-        - '#Access to an undefined property App\\Models\\Donor\|Illuminate\\Database\\Eloquent\\Collection#'
+        - '#Offset .* on left side of \?\? always exists#'
