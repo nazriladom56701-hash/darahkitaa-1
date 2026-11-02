@@ -50,6 +50,7 @@ interface NotificationItem {
     channel: string;
     status: string;
     sent_at: string;
+    created_at: string;
     sender?: { name: string };
 }
 
