@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
-import { 
-    LogIn, 
-    LayoutDashboard, 
-    Users, 
-    Calendar, 
-    Droplets, 
-    Building2, 
-    FileText, 
-    CheckCircle2, 
-    UserCheck, 
-    RefreshCw, 
+import {
+    LogIn,
+    LayoutDashboard,
+    Users,
+    Calendar,
+    Droplets,
+    Building2,
+    FileText,
+    CheckCircle2,
+    UserCheck,
+    RefreshCw,
     CheckCheck,
-    ArrowDown
+    ArrowDown,
 } from '@lucide/vue';
 
 defineProps<{
@@ -28,66 +28,95 @@ defineProps<{
 </script>
 
 <template>
-    <div class="rounded-2xl border border-zinc-800 bg-zinc-950/90 p-5 md:p-6 text-zinc-100 shadow-xl">
+    <div
+        class="rounded-2xl border border-zinc-800 bg-zinc-950/90 p-5 text-zinc-100 shadow-xl md:p-6"
+    >
         <!-- Header -->
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-zinc-800/80 gap-3">
+        <div
+            class="flex flex-col justify-between gap-3 border-b border-zinc-800/80 pb-5 sm:flex-row sm:items-center"
+        >
             <div>
                 <div class="flex items-center gap-2">
-                    <span class="inline-block size-2.5 rounded-full bg-red-500 animate-pulse"></span>
-                    <h3 class="font-bold text-base md:text-lg tracking-tight text-white">Alur Sistem DarahKitaa (Flow Diagram)</h3>
+                    <span
+                        class="inline-block size-2.5 animate-pulse rounded-full bg-red-500"
+                    ></span>
+                    <h3
+                        class="text-base font-bold tracking-tight text-white md:text-lg"
+                    >
+                        Alur Sistem DarahKitaa (Flow Diagram)
+                    </h3>
                 </div>
-                <p class="text-xs text-zinc-400 mt-0.5">
-                    Representasi alur kerja web admin: klik modul untuk menuju halaman dan menjalankan aksi admin
+                <p class="mt-0.5 text-xs text-zinc-400">
+                    Representasi alur kerja web admin: klik modul untuk menuju
+                    halaman dan menjalankan aksi admin
                 </p>
             </div>
 
             <!-- Legend matching the user's diagram -->
             <div class="flex flex-wrap items-center gap-4 text-xs">
                 <div class="flex items-center gap-1.5">
-                    <span class="size-3 rounded bg-zinc-600 border border-zinc-500"></span>
+                    <span
+                        class="size-3 rounded border border-zinc-500 bg-zinc-600"
+                    ></span>
                     <span class="text-zinc-300">Umum</span>
                 </div>
                 <div class="flex items-center gap-1.5">
-                    <span class="size-3 rounded bg-amber-900 border border-amber-700"></span>
+                    <span
+                        class="size-3 rounded border border-amber-700 bg-amber-900"
+                    ></span>
                     <span class="text-zinc-300">Modul utama</span>
                 </div>
                 <div class="flex items-center gap-1.5">
-                    <span class="size-3 rounded bg-teal-800 border border-teal-600"></span>
+                    <span
+                        class="size-3 rounded border border-teal-600 bg-teal-800"
+                    ></span>
                     <span class="text-zinc-300">Aksi admin</span>
                 </div>
             </div>
         </div>
 
         <!-- Interactive Diagram Layout -->
-        <div class="pt-6 flex flex-col items-center">
-            
+        <div class="flex flex-col items-center pt-6">
             <!-- Step 1: Login Admin (Umum) -->
             <div class="flex flex-col items-center">
-                <div class="w-64 px-4 py-2.5 rounded-xl bg-zinc-800/90 border border-zinc-700 shadow-md text-center transition hover:border-zinc-500">
-                    <div class="flex items-center justify-center gap-2 font-semibold text-sm text-zinc-200">
+                <div
+                    class="w-64 rounded-xl border border-zinc-700 bg-zinc-800/90 px-4 py-2.5 text-center shadow-md transition hover:border-zinc-500"
+                >
+                    <div
+                        class="flex items-center justify-center gap-2 text-sm font-semibold text-zinc-200"
+                    >
                         <LogIn class="size-4 text-zinc-400" />
                         <span>Login admin</span>
                     </div>
-                    <p class="text-[11px] text-zinc-400 mt-0.5">Autentikasi & hak akses UDD PMI</p>
+                    <p class="mt-0.5 text-[11px] text-zinc-400">
+                        Autentikasi & hak akses UDD PMI
+                    </p>
                 </div>
 
                 <!-- Down connector line -->
-                <div class="w-0.5 h-6 bg-zinc-700"></div>
-                <ArrowDown class="size-3 text-zinc-500 -mt-1.5" />
+                <div class="h-6 w-0.5 bg-zinc-700"></div>
+                <ArrowDown class="-mt-1.5 size-3 text-zinc-500" />
             </div>
 
             <!-- Step 2: Dashboard (Umum) -->
-            <div class="flex flex-col items-center w-full max-w-sm">
-                <Link 
+            <div class="flex w-full max-w-sm flex-col items-center">
+                <Link
                     href="/dashboard"
-                    class="w-full px-5 py-3 rounded-xl bg-zinc-800/90 border border-zinc-700 hover:border-red-500/60 shadow-lg text-center transition group"
+                    class="group w-full rounded-xl border border-zinc-700 bg-zinc-800/90 px-5 py-3 text-center shadow-lg transition hover:border-red-500/60"
                 >
-                    <div class="flex items-center justify-center gap-2 font-bold text-sm text-white group-hover:text-red-400 transition">
+                    <div
+                        class="flex items-center justify-center gap-2 text-sm font-bold text-white transition group-hover:text-red-400"
+                    >
                         <LayoutDashboard class="size-4 text-red-500" />
                         <span>Dashboard</span>
                     </div>
-                    <p class="text-xs text-zinc-300 mt-1">Ringkasan stok dan aktivitas</p>
-                    <div v-if="stats" class="mt-2 inline-flex items-center gap-2 text-[11px] bg-zinc-900/80 px-2.5 py-0.5 rounded-full text-zinc-400 border border-zinc-800">
+                    <p class="mt-1 text-xs text-zinc-300">
+                        Ringkasan stok dan aktivitas
+                    </p>
+                    <div
+                        v-if="stats"
+                        class="mt-2 inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/80 px-2.5 py-0.5 text-[11px] text-zinc-400"
+                    >
                         <span>{{ stats.total_stock_units }} Kantong Darah</span>
                         <span>•</span>
                         <span>{{ stats.total_donors }} Donor</span>
@@ -95,55 +124,76 @@ defineProps<{
                 </Link>
 
                 <!-- Stem down to horizontal branch -->
-                <div class="w-0.5 h-6 bg-zinc-700"></div>
+                <div class="h-6 w-0.5 bg-zinc-700"></div>
             </div>
 
             <!-- Horizontal Trunk Line -->
-            <div class="relative w-full max-w-4xl hidden md:block">
-                <div class="h-0.5 w-[84%] mx-auto bg-zinc-700"></div>
+            <div class="relative hidden w-full max-w-4xl md:block">
+                <div class="mx-auto h-0.5 w-[84%] bg-zinc-700"></div>
             </div>
 
             <!-- 4 Branches: Modul Utama & Aksi Admin -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-4xl mt-3 md:mt-0">
-                
+            <div
+                class="mt-3 grid w-full max-w-4xl grid-cols-1 gap-4 sm:grid-cols-2 md:mt-0 md:grid-cols-4"
+            >
                 <!-- Branch 1: Data Donor -> Verifikasi -->
                 <div class="flex flex-col items-center">
                     <!-- Stem from horizontal trunk -->
-                    <div class="w-0.5 h-4 bg-zinc-700 hidden md:block"></div>
-                    <ArrowDown class="size-3 text-zinc-500 -mt-1 hidden md:block" />
+                    <div class="hidden h-4 w-0.5 bg-zinc-700 md:block"></div>
+                    <ArrowDown
+                        class="-mt-1 hidden size-3 text-zinc-500 md:block"
+                    />
 
                     <!-- Modul Utama Card -->
-                    <Link 
-                        href="/donors" 
-                        class="w-full p-3.5 rounded-xl bg-[#4A1E14] border border-[#6E2C1E] hover:border-amber-500/60 shadow-md text-center transition group flex flex-col justify-between min-h-[92px]"
+                    <Link
+                        href="/donors"
+                        class="group flex min-h-[92px] w-full flex-col justify-between rounded-xl border border-[#6E2C1E] bg-[#4A1E14] p-3.5 text-center shadow-md transition hover:border-amber-500/60"
                     >
-                        <div class="flex items-center justify-center gap-1.5 font-bold text-sm text-amber-100 group-hover:text-white">
+                        <div
+                            class="flex items-center justify-center gap-1.5 text-sm font-bold text-amber-100 group-hover:text-white"
+                        >
                             <Users class="size-4 text-amber-400" />
                             <span>Data donor</span>
                         </div>
-                        <p class="text-xs text-amber-200/80 mt-1">Profil, riwayat</p>
-                        <div v-if="stats" class="mt-1.5 text-[10px] text-amber-300/70">
+                        <p class="mt-1 text-xs text-amber-200/80">
+                            Profil, riwayat
+                        </p>
+                        <div
+                            v-if="stats"
+                            class="mt-1.5 text-[10px] text-amber-300/70"
+                        >
                             {{ stats.total_donors }} Donor Terdaftar
                         </div>
                     </Link>
 
                     <!-- Down arrow to action -->
-                    <div class="w-0.5 h-4 bg-zinc-700"></div>
-                    <ArrowDown class="size-3 text-zinc-500 -mt-1" />
+                    <div class="h-4 w-0.5 bg-zinc-700"></div>
+                    <ArrowDown class="-mt-1 size-3 text-zinc-500" />
 
                     <!-- Aksi Admin Card -->
-                    <Link 
+                    <Link
                         href="/donors?status=pending"
-                        class="w-full py-2.5 px-3 rounded-xl bg-[#0F3A34] border border-[#175C53] hover:border-teal-400/80 hover:bg-[#144740] shadow-md text-center transition group"
+                        class="group w-full rounded-xl border border-[#175C53] bg-[#0F3A34] px-3 py-2.5 text-center shadow-md transition hover:border-teal-400/80 hover:bg-[#144740]"
                     >
-                        <div class="flex items-center justify-center gap-1.5 font-bold text-xs text-teal-200 group-hover:text-white">
+                        <div
+                            class="flex items-center justify-center gap-1.5 text-xs font-bold text-teal-200 group-hover:text-white"
+                        >
                             <CheckCircle2 class="size-3.5 text-teal-400" />
                             <span>Verifikasi</span>
                         </div>
-                        <span v-if="stats && stats.pending_verification_donors > 0" class="inline-block mt-1 text-[10px] font-semibold text-amber-300 bg-amber-500/20 border border-amber-500/30 px-2 py-0.5 rounded-full">
-                            {{ stats.pending_verification_donors }} Perlu Ditinjau
+                        <span
+                            v-if="
+                                stats && stats.pending_verification_donors > 0
+                            "
+                            class="mt-1 inline-block rounded-full border border-amber-500/30 bg-amber-500/20 px-2 py-0.5 text-[10px] font-semibold text-amber-300"
+                        >
+                            {{ stats.pending_verification_donors }} Perlu
+                            Ditinjau
                         </span>
-                        <span v-else class="text-[10px] text-teal-300/70 mt-0.5 block">
+                        <span
+                            v-else
+                            class="mt-0.5 block text-[10px] text-teal-300/70"
+                        >
                             Kelayakan & Skrining
                         </span>
                     </Link>
@@ -151,37 +201,48 @@ defineProps<{
 
                 <!-- Branch 2: Jadwal Donor -> Absensi donor -->
                 <div class="flex flex-col items-center">
-                    <div class="w-0.5 h-4 bg-zinc-700 hidden md:block"></div>
-                    <ArrowDown class="size-3 text-zinc-500 -mt-1 hidden md:block" />
+                    <div class="hidden h-4 w-0.5 bg-zinc-700 md:block"></div>
+                    <ArrowDown
+                        class="-mt-1 hidden size-3 text-zinc-500 md:block"
+                    />
 
                     <!-- Modul Utama Card -->
-                    <Link 
-                        href="/events" 
-                        class="w-full p-3.5 rounded-xl bg-[#4A1E14] border border-[#6E2C1E] hover:border-amber-500/60 shadow-md text-center transition group flex flex-col justify-between min-h-[92px]"
+                    <Link
+                        href="/events"
+                        class="group flex min-h-[92px] w-full flex-col justify-between rounded-xl border border-[#6E2C1E] bg-[#4A1E14] p-3.5 text-center shadow-md transition hover:border-amber-500/60"
                     >
-                        <div class="flex items-center justify-center gap-1.5 font-bold text-sm text-amber-100 group-hover:text-white">
+                        <div
+                            class="flex items-center justify-center gap-1.5 text-sm font-bold text-amber-100 group-hover:text-white"
+                        >
                             <Calendar class="size-4 text-amber-400" />
                             <span>Jadwal donor</span>
                         </div>
-                        <p class="text-xs text-amber-200/80 mt-1">Event, kuota</p>
-                        <div v-if="stats" class="mt-1.5 text-[10px] text-amber-300/70">
+                        <p class="mt-1 text-xs text-amber-200/80">
+                            Event, kuota
+                        </p>
+                        <div
+                            v-if="stats"
+                            class="mt-1.5 text-[10px] text-amber-300/70"
+                        >
                             {{ stats.active_events_count }} Event Aktif
                         </div>
                     </Link>
 
-                    <div class="w-0.5 h-4 bg-zinc-700"></div>
-                    <ArrowDown class="size-3 text-zinc-500 -mt-1" />
+                    <div class="h-4 w-0.5 bg-zinc-700"></div>
+                    <ArrowDown class="-mt-1 size-3 text-zinc-500" />
 
                     <!-- Aksi Admin Card -->
-                    <Link 
+                    <Link
                         href="/events"
-                        class="w-full py-2.5 px-3 rounded-xl bg-[#0F3A34] border border-[#175C53] hover:border-teal-400/80 hover:bg-[#144740] shadow-md text-center transition group"
+                        class="group w-full rounded-xl border border-[#175C53] bg-[#0F3A34] px-3 py-2.5 text-center shadow-md transition hover:border-teal-400/80 hover:bg-[#144740]"
                     >
-                        <div class="flex items-center justify-center gap-1.5 font-bold text-xs text-teal-200 group-hover:text-white">
+                        <div
+                            class="flex items-center justify-center gap-1.5 text-xs font-bold text-teal-200 group-hover:text-white"
+                        >
                             <UserCheck class="size-3.5 text-teal-400" />
                             <span>Absensi donor</span>
                         </div>
-                        <span class="text-[10px] text-teal-300/70 mt-0.5 block">
+                        <span class="mt-0.5 block text-[10px] text-teal-300/70">
                             Presensi & Skrining Fisik
                         </span>
                     </Link>
@@ -189,37 +250,48 @@ defineProps<{
 
                 <!-- Branch 3: Stok Darah -> Update stok -->
                 <div class="flex flex-col items-center">
-                    <div class="w-0.5 h-4 bg-zinc-700 hidden md:block"></div>
-                    <ArrowDown class="size-3 text-zinc-500 -mt-1 hidden md:block" />
+                    <div class="hidden h-4 w-0.5 bg-zinc-700 md:block"></div>
+                    <ArrowDown
+                        class="-mt-1 hidden size-3 text-zinc-500 md:block"
+                    />
 
                     <!-- Modul Utama Card -->
-                    <Link 
-                        href="/stocks" 
-                        class="w-full p-3.5 rounded-xl bg-[#4A1E14] border border-[#6E2C1E] hover:border-amber-500/60 shadow-md text-center transition group flex flex-col justify-between min-h-[92px]"
+                    <Link
+                        href="/stocks"
+                        class="group flex min-h-[92px] w-full flex-col justify-between rounded-xl border border-[#6E2C1E] bg-[#4A1E14] p-3.5 text-center shadow-md transition hover:border-amber-500/60"
                     >
-                        <div class="flex items-center justify-center gap-1.5 font-bold text-sm text-amber-100 group-hover:text-white">
+                        <div
+                            class="flex items-center justify-center gap-1.5 text-sm font-bold text-amber-100 group-hover:text-white"
+                        >
                             <Droplets class="size-4 text-amber-400" />
                             <span>Stok darah</span>
                         </div>
-                        <p class="text-xs text-amber-200/80 mt-1">Per golongan</p>
-                        <div v-if="stats" class="mt-1.5 text-[10px] text-amber-300/70">
+                        <p class="mt-1 text-xs text-amber-200/80">
+                            Per golongan
+                        </p>
+                        <div
+                            v-if="stats"
+                            class="mt-1.5 text-[10px] text-amber-300/70"
+                        >
                             {{ stats.total_stock_units }} Total Kantong
                         </div>
                     </Link>
 
-                    <div class="w-0.5 h-4 bg-zinc-700"></div>
-                    <ArrowDown class="size-3 text-zinc-500 -mt-1" />
+                    <div class="h-4 w-0.5 bg-zinc-700"></div>
+                    <ArrowDown class="-mt-1 size-3 text-zinc-500" />
 
                     <!-- Aksi Admin Card -->
-                    <Link 
+                    <Link
                         href="/stocks"
-                        class="w-full py-2.5 px-3 rounded-xl bg-[#0F3A34] border border-[#175C53] hover:border-teal-400/80 hover:bg-[#144740] shadow-md text-center transition group"
+                        class="group w-full rounded-xl border border-[#175C53] bg-[#0F3A34] px-3 py-2.5 text-center shadow-md transition hover:border-teal-400/80 hover:bg-[#144740]"
                     >
-                        <div class="flex items-center justify-center gap-1.5 font-bold text-xs text-teal-200 group-hover:text-white">
+                        <div
+                            class="flex items-center justify-center gap-1.5 text-xs font-bold text-teal-200 group-hover:text-white"
+                        >
                             <RefreshCw class="size-3.5 text-teal-400" />
                             <span>Update stok</span>
                         </div>
-                        <span class="text-[10px] text-teal-300/70 mt-0.5 block">
+                        <span class="mt-0.5 block text-[10px] text-teal-300/70">
                             Masuk, Keluar, Mutasi
                         </span>
                     </Link>
@@ -227,40 +299,55 @@ defineProps<{
 
                 <!-- Branch 4: Permintaan -> Setujui / tolak -->
                 <div class="flex flex-col items-center">
-                    <div class="w-0.5 h-4 bg-zinc-700 hidden md:block"></div>
-                    <ArrowDown class="size-3 text-zinc-500 -mt-1 hidden md:block" />
+                    <div class="hidden h-4 w-0.5 bg-zinc-700 md:block"></div>
+                    <ArrowDown
+                        class="-mt-1 hidden size-3 text-zinc-500 md:block"
+                    />
 
                     <!-- Modul Utama Card -->
-                    <Link 
-                        href="/requests" 
-                        class="w-full p-3.5 rounded-xl bg-[#4A1E14] border border-[#6E2C1E] hover:border-amber-500/60 shadow-md text-center transition group flex flex-col justify-between min-h-[92px]"
+                    <Link
+                        href="/requests"
+                        class="group flex min-h-[92px] w-full flex-col justify-between rounded-xl border border-[#6E2C1E] bg-[#4A1E14] p-3.5 text-center shadow-md transition hover:border-amber-500/60"
                     >
-                        <div class="flex items-center justify-center gap-1.5 font-bold text-sm text-amber-100 group-hover:text-white">
+                        <div
+                            class="flex items-center justify-center gap-1.5 text-sm font-bold text-amber-100 group-hover:text-white"
+                        >
                             <Building2 class="size-4 text-amber-400" />
                             <span>Permintaan</span>
                         </div>
-                        <p class="text-xs text-amber-200/80 mt-1">Rumah sakit</p>
-                        <div v-if="stats && stats.emergency_requests_count > 0" class="mt-1.5 text-[10px] font-semibold text-red-400 animate-pulse">
-                            ⚠️ {{ stats.emergency_requests_count }} Darurat Cito!
+                        <p class="mt-1 text-xs text-amber-200/80">
+                            Rumah sakit
+                        </p>
+                        <div
+                            v-if="stats && stats.emergency_requests_count > 0"
+                            class="mt-1.5 animate-pulse text-[10px] font-semibold text-red-400"
+                        >
+                            ⚠️ {{ stats.emergency_requests_count }} Darurat
+                            Cito!
                         </div>
-                        <div v-else-if="stats" class="mt-1.5 text-[10px] text-amber-300/70">
+                        <div
+                            v-else-if="stats"
+                            class="mt-1.5 text-[10px] text-amber-300/70"
+                        >
                             {{ stats.pending_requests_count }} Menunggu
                         </div>
                     </Link>
 
-                    <div class="w-0.5 h-4 bg-zinc-700"></div>
-                    <ArrowDown class="size-3 text-zinc-500 -mt-1" />
+                    <div class="h-4 w-0.5 bg-zinc-700"></div>
+                    <ArrowDown class="-mt-1 size-3 text-zinc-500" />
 
                     <!-- Aksi Admin Card -->
-                    <Link 
+                    <Link
                         href="/requests?status=pending"
-                        class="w-full py-2.5 px-3 rounded-xl bg-[#0F3A34] border border-[#175C53] hover:border-teal-400/80 hover:bg-[#144740] shadow-md text-center transition group"
+                        class="group w-full rounded-xl border border-[#175C53] bg-[#0F3A34] px-3 py-2.5 text-center shadow-md transition hover:border-teal-400/80 hover:bg-[#144740]"
                     >
-                        <div class="flex items-center justify-center gap-1.5 font-bold text-xs text-teal-200 group-hover:text-white">
+                        <div
+                            class="flex items-center justify-center gap-1.5 text-xs font-bold text-teal-200 group-hover:text-white"
+                        >
                             <CheckCheck class="size-3.5 text-teal-400" />
                             <span>Setujui / tolak</span>
                         </div>
-                        <span class="text-[10px] text-teal-300/70 mt-0.5 block">
+                        <span class="mt-0.5 block text-[10px] text-teal-300/70">
                             Validasi & Alokasi Stok
                         </span>
                     </Link>
@@ -268,34 +355,45 @@ defineProps<{
             </div>
 
             <!-- Merging lines down to Laporan & Notifikasi -->
-            <div class="relative w-full max-w-4xl hidden md:block mt-2">
-                <div class="h-0.5 w-[84%] mx-auto bg-zinc-700"></div>
-                <div class="w-0.5 h-6 mx-auto bg-zinc-700"></div>
-                <ArrowDown class="size-3 text-zinc-500 mx-auto -mt-1.5" />
+            <div class="relative mt-2 hidden w-full max-w-4xl md:block">
+                <div class="mx-auto h-0.5 w-[84%] bg-zinc-700"></div>
+                <div class="mx-auto h-6 w-0.5 bg-zinc-700"></div>
+                <ArrowDown class="mx-auto -mt-1.5 size-3 text-zinc-500" />
             </div>
 
             <!-- Mobile down arrow -->
-            <div class="w-0.5 h-6 bg-zinc-700 md:hidden mt-2"></div>
-            <ArrowDown class="size-3 text-zinc-500 -mt-1.5 md:hidden" />
+            <div class="mt-2 h-6 w-0.5 bg-zinc-700 md:hidden"></div>
+            <ArrowDown class="-mt-1.5 size-3 text-zinc-500 md:hidden" />
 
             <!-- Bottom Node: Laporan dan notifikasi (Umum) -->
-            <div class="w-full max-w-md mt-2">
-                <Link 
-                    href="/reports" 
-                    class="block w-full p-4 rounded-xl bg-zinc-800/90 border border-zinc-700 hover:border-blue-500/60 shadow-lg text-center transition group"
+            <div class="mt-2 w-full max-w-md">
+                <Link
+                    href="/reports"
+                    class="group block w-full rounded-xl border border-zinc-700 bg-zinc-800/90 p-4 text-center shadow-lg transition hover:border-blue-500/60"
                 >
-                    <div class="flex items-center justify-center gap-2 font-bold text-sm text-white group-hover:text-blue-400 transition">
+                    <div
+                        class="flex items-center justify-center gap-2 text-sm font-bold text-white transition group-hover:text-blue-400"
+                    >
                         <FileText class="size-4 text-blue-400" />
                         <span>Laporan dan notifikasi</span>
                     </div>
-                    <p class="text-xs text-zinc-300 mt-1">Ekspor data, kirim pengingat</p>
-                    <div class="mt-2 flex items-center justify-center gap-3 text-[11px] text-zinc-400">
-                        <span class="bg-zinc-900/90 px-2 py-0.5 rounded border border-zinc-800">Ekspor CSV & Cetak</span>
-                        <span class="bg-zinc-900/90 px-2 py-0.5 rounded border border-zinc-800">Broadcast WhatsApp</span>
+                    <p class="mt-1 text-xs text-zinc-300">
+                        Ekspor data, kirim pengingat
+                    </p>
+                    <div
+                        class="mt-2 flex items-center justify-center gap-3 text-[11px] text-zinc-400"
+                    >
+                        <span
+                            class="rounded border border-zinc-800 bg-zinc-900/90 px-2 py-0.5"
+                            >Ekspor CSV & Cetak</span
+                        >
+                        <span
+                            class="rounded border border-zinc-800 bg-zinc-900/90 px-2 py-0.5"
+                            >Broadcast WhatsApp</span
+                        >
                     </div>
                 </Link>
             </div>
-
         </div>
     </div>
 </template>

@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
-import { 
-    LayoutGrid, 
-    Users, 
-    CalendarDays, 
-    Droplet, 
-    Building2, 
+import {
+    LayoutGrid,
+    Users,
+    CalendarDays,
+    Droplet,
+    Building2,
     FileSpreadsheet,
-    ShieldCheck
+    ShieldCheck,
 } from '@lucide/vue';
 import AppLogo from '@/components/AppLogo.vue';
 import NavUser from '@/components/NavUser.vue';
@@ -89,19 +89,32 @@ const reportItems = [
         <SidebarContent class="space-y-2">
             <!-- UMUM -->
             <SidebarGroup class="px-2 py-0">
-                <SidebarGroupLabel class="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">
+                <SidebarGroupLabel
+                    class="text-[11px] font-semibold tracking-wider text-muted-foreground uppercase"
+                >
                     Umum
                 </SidebarGroupLabel>
                 <SidebarMenu>
-                    <SidebarMenuItem v-for="item in generalItems" :key="item.title">
+                    <SidebarMenuItem
+                        v-for="item in generalItems"
+                        :key="item.title"
+                    >
                         <SidebarMenuButton
                             as-child
                             :is-active="isCurrentUrl(item.href)"
                             :tooltip="item.title"
                         >
-                            <Link :href="item.href" class="flex items-center gap-2">
-                                <component :is="item.icon" class="size-4 text-red-500" />
-                                <span class="font-medium">{{ item.title }}</span>
+                            <Link
+                                :href="item.href"
+                                class="flex items-center gap-2"
+                            >
+                                <component
+                                    :is="item.icon"
+                                    class="size-4 text-red-500"
+                                />
+                                <span class="font-medium">{{
+                                    item.title
+                                }}</span>
                             </Link>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
@@ -110,23 +123,41 @@ const reportItems = [
 
             <!-- MODUL UTAMA & AKSI ADMIN -->
             <SidebarGroup class="px-2 py-0">
-                <SidebarGroupLabel class="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider flex items-center justify-between">
+                <SidebarGroupLabel
+                    class="flex items-center justify-between text-[11px] font-semibold tracking-wider text-muted-foreground uppercase"
+                >
                     <span>Modul Utama</span>
-                    <span class="text-[10px] text-emerald-600 dark:text-emerald-400 font-normal">Aksi Admin</span>
+                    <span
+                        class="text-[10px] font-normal text-emerald-600 dark:text-emerald-400"
+                        >Aksi Admin</span
+                    >
                 </SidebarGroupLabel>
                 <SidebarMenu>
-                    <SidebarMenuItem v-for="item in mainModules" :key="item.title">
+                    <SidebarMenuItem
+                        v-for="item in mainModules"
+                        :key="item.title"
+                    >
                         <SidebarMenuButton
                             as-child
                             :is-active="isCurrentUrl(item.href)"
                             :tooltip="item.title"
                         >
-                            <Link :href="item.href" class="flex items-center justify-between w-full">
+                            <Link
+                                :href="item.href"
+                                class="flex w-full items-center justify-between"
+                            >
                                 <div class="flex items-center gap-2">
-                                    <component :is="item.icon" class="size-4 text-amber-600 dark:text-amber-500" />
-                                    <span class="font-medium">{{ item.title }}</span>
+                                    <component
+                                        :is="item.icon"
+                                        class="size-4 text-amber-600 dark:text-amber-500"
+                                    />
+                                    <span class="font-medium">{{
+                                        item.title
+                                    }}</span>
                                 </div>
-                                <span class="text-[10px] bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 px-1.5 py-0.5 rounded font-mono font-medium border border-emerald-500/20">
+                                <span
+                                    class="rounded border border-emerald-500/20 bg-emerald-500/10 px-1.5 py-0.5 font-mono text-[10px] font-medium text-emerald-700 dark:text-emerald-400"
+                                >
                                     {{ item.actionLabel }}
                                 </span>
                             </Link>
@@ -137,19 +168,32 @@ const reportItems = [
 
             <!-- LAPORAN & NOTIFIKASI -->
             <SidebarGroup class="px-2 py-0">
-                <SidebarGroupLabel class="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">
+                <SidebarGroupLabel
+                    class="text-[11px] font-semibold tracking-wider text-muted-foreground uppercase"
+                >
                     Output & Layanan
                 </SidebarGroupLabel>
                 <SidebarMenu>
-                    <SidebarMenuItem v-for="item in reportItems" :key="item.title">
+                    <SidebarMenuItem
+                        v-for="item in reportItems"
+                        :key="item.title"
+                    >
                         <SidebarMenuButton
                             as-child
                             :is-active="isCurrentUrl(item.href)"
                             :tooltip="item.title"
                         >
-                            <Link :href="item.href" class="flex items-center gap-2">
-                                <component :is="item.icon" class="size-4 text-blue-500" />
-                                <span class="font-medium">{{ item.title }}</span>
+                            <Link
+                                :href="item.href"
+                                class="flex items-center gap-2"
+                            >
+                                <component
+                                    :is="item.icon"
+                                    class="size-4 text-blue-500"
+                                />
+                                <span class="font-medium">{{
+                                    item.title
+                                }}</span>
                             </Link>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
@@ -158,11 +202,15 @@ const reportItems = [
         </SidebarContent>
 
         <SidebarFooter>
-            <div class="px-3 py-2 mx-2 mb-2 rounded-lg bg-red-500/10 border border-red-500/20 text-[11px] text-red-700 dark:text-red-400 flex items-center gap-2">
+            <div
+                class="mx-2 mb-2 flex items-center gap-2 rounded-lg border border-red-500/20 bg-red-500/10 px-3 py-2 text-[11px] text-red-700 dark:text-red-400"
+            >
                 <ShieldCheck class="size-4 shrink-0 text-red-600" />
                 <div class="truncate">
-                    <p class="font-semibold leading-tight">DarahKitaa PMI</p>
-                    <p class="text-[10px] text-muted-foreground truncate">Unit Transfusi Darah</p>
+                    <p class="leading-tight font-semibold">DarahKitaa PMI</p>
+                    <p class="truncate text-[10px] text-muted-foreground">
+                        Unit Transfusi Darah
+                    </p>
                 </div>
             </div>
             <NavUser />

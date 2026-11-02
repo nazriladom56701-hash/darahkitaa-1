@@ -52,14 +52,18 @@ function fillCredentials(role: 'admin' | 'staff') {
 
     <div
         v-if="status"
-        class="mb-4 text-center text-sm font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 p-2.5 rounded-lg"
+        class="mb-4 rounded-lg border border-emerald-500/20 bg-emerald-500/10 p-2.5 text-center text-sm font-medium text-emerald-600 dark:text-emerald-400"
     >
         {{ status }}
     </div>
 
     <!-- Demo Accounts Pill -->
-    <div class="mb-4 p-3 bg-red-500/5 dark:bg-red-950/20 border border-red-500/20 rounded-xl">
-        <div class="flex items-center gap-1.5 text-xs font-semibold text-red-600 dark:text-red-400 mb-2">
+    <div
+        class="mb-4 rounded-xl border border-red-500/20 bg-red-500/5 p-3 dark:bg-red-950/20"
+    >
+        <div
+            class="mb-2 flex items-center gap-1.5 text-xs font-semibold text-red-600 dark:text-red-400"
+        >
             <ShieldCheck class="size-4" />
             <span>Akun Demo Cepat (Klik untuk Isi):</span>
         </div>
@@ -67,23 +71,32 @@ function fillCredentials(role: 'admin' | 'staff') {
             <button
                 type="button"
                 @click="fillCredentials('admin')"
-                class="flex flex-col text-left p-2 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:border-red-500/50 hover:bg-red-500/5 transition text-xs"
+                class="flex flex-col rounded-lg border border-zinc-200 bg-white p-2 text-left text-xs transition hover:border-red-500/50 hover:bg-red-500/5 dark:border-zinc-800 dark:bg-zinc-900"
             >
-                <span class="font-medium text-zinc-900 dark:text-zinc-100 flex items-center gap-1">
+                <span
+                    class="flex items-center gap-1 font-medium text-zinc-900 dark:text-zinc-100"
+                >
                     <Droplet class="size-3 text-red-500" /> Admin PMI
                 </span>
-                <span class="text-[10px] text-muted-foreground truncate">admin@darahkita.id</span>
+                <span class="truncate text-[10px] text-muted-foreground"
+                    >admin@darahkita.id</span
+                >
             </button>
 
             <button
                 type="button"
                 @click="fillCredentials('staff')"
-                class="flex flex-col text-left p-2 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:border-red-500/50 hover:bg-red-500/5 transition text-xs"
+                class="flex flex-col rounded-lg border border-zinc-200 bg-white p-2 text-left text-xs transition hover:border-red-500/50 hover:bg-red-500/5 dark:border-zinc-800 dark:bg-zinc-900"
             >
-                <span class="font-medium text-zinc-900 dark:text-zinc-100 flex items-center gap-1">
-                    <UserCheck class="size-3 text-emerald-500" /> Petugas Lapangan
+                <span
+                    class="flex items-center gap-1 font-medium text-zinc-900 dark:text-zinc-100"
+                >
+                    <UserCheck class="size-3 text-emerald-500" /> Petugas
+                    Lapangan
                 </span>
-                <span class="text-[10px] text-muted-foreground truncate">petugas@darahkita.id</span>
+                <span class="truncate text-[10px] text-muted-foreground"
+                    >petugas@darahkita.id</span
+                >
             </button>
         </div>
     </div>
@@ -129,15 +142,22 @@ function fillCredentials(role: 'admin' | 'staff') {
             </div>
 
             <div class="flex items-center justify-between">
-                <Label for="remember" class="flex items-center space-x-2 text-sm">
-                    <Checkbox id="remember" v-model:checked="form.remember" :tabindex="3" />
+                <Label
+                    for="remember"
+                    class="flex items-center space-x-2 text-sm"
+                >
+                    <Checkbox
+                        id="remember"
+                        v-model:checked="form.remember"
+                        :tabindex="3"
+                    />
                     <span>Ingat sesi masuk</span>
                 </Label>
             </div>
 
             <Button
                 type="submit"
-                class="mt-2 w-full bg-red-600 hover:bg-red-700 text-white font-medium"
+                class="mt-2 w-full bg-red-600 font-medium text-white hover:bg-red-700"
                 :tabindex="4"
                 :disabled="form.processing"
             >
@@ -148,7 +168,9 @@ function fillCredentials(role: 'admin' | 'staff') {
 
         <div class="text-center text-xs text-muted-foreground">
             Belum punya akun admin? Hubungi koordinator UDD PMI atau
-            <TextLink :href="register()" :tabindex="5">Daftar Akun Baru</TextLink>
+            <TextLink :href="register()" :tabindex="5"
+                >Daftar Akun Baru</TextLink
+            >
         </div>
     </form>
 </template>
