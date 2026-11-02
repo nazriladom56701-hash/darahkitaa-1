@@ -21,7 +21,7 @@ class BloodBag extends Model
 
     public function getBloodTypeFullAttribute(): string
     {
-        return $this->blood_type . $this->rhesus;
+        return $this->blood_type.$this->rhesus;
     }
 
     public function donor(): BelongsTo
@@ -34,4 +34,3 @@ class BloodBag extends Model
         return $this->belongsTo(DonorEvent::class, 'event_id');
     }
 }
-

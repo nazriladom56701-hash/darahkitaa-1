@@ -17,4 +17,3 @@ class BloodStockMutation extends Model
         return $this->belongsTo(User::class, 'officer_id');
     }
 }
-

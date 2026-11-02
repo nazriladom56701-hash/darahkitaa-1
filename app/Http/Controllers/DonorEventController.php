@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DonorEvent;
-use App\Models\EventAttendance;
-use App\Models\Donor;
-use App\Models\DonorHistory;
 use App\Models\BloodStock;
 use App\Models\BloodStockMutation;
-use App\Models\BloodBag;
+use App\Models\Donor;
+use App\Models\DonorEvent;
+use App\Models\DonorHistory;
+use App\Models\EventAttendance;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\DB;
 
 class DonorEventController extends Controller
 {
@@ -33,8 +32,8 @@ class DonorEventController extends Controller
             $search = $request->input('search');
             $query->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%{$search}%")
-                  ->orWhere('location', 'like', "%{$search}%")
-                  ->orWhere('organizer', 'like', "%{$search}%");
+                    ->orWhere('location', 'like', "%{$search}%")
+                    ->orWhere('organizer', 'like', "%{$search}%");
             });
         }
 
@@ -57,7 +56,7 @@ class DonorEventController extends Controller
     public function show(DonorEvent $event): Response
     {
         $event->load(['attendances.donor', 'attendances.officer']);
-        
+
         $availableDonors = Donor::where('verification_status', '!=', 'suspended')
             ->whereNotIn('id', $event->attendances->pluck('donor_id'))
             ->select('id', 'name', 'donor_code', 'blood_type', 'rhesus', 'phone')
@@ -87,7 +86,7 @@ class DonorEventController extends Controller
         ]);
 
         $nextId = DonorEvent::max('id') + 1;
-        $eventCode = 'EVT-' . date('Y') . '-' . str_pad((string)$nextId, 3, '0', STR_PAD_LEFT);
+        $eventCode = 'EVT-'.date('Y').'-'.str_pad((string) $nextId, 3, '0', STR_PAD_LEFT);
 
         DonorEvent::create(array_merge($validated, [
             'event_code' => $eventCode,
@@ -151,7 +150,7 @@ class DonorEventController extends Controller
             // If passed and was not previously passed, create donation record & add blood stock!
             if ($validated['screening_status'] === 'passed' && $prevStatus !== 'passed') {
                 $donor = $attendance->donor;
-                $bagCode = 'BAG-' . $donor->blood_type . ($donor->rhesus === '+' ? 'POS' : 'NEG') . '-' . date('Ymd') . '-' . rand(100, 999);
+                $bagCode = 'BAG-'.$donor->blood_type.($donor->rhesus === '+' ? 'POS' : 'NEG').'-'.date('Ymd').'-'.rand(100, 999);
                 $attendanceData['blood_bag_code'] = $bagCode;
 
                 // 1. Create Donor History
@@ -167,7 +166,7 @@ class DonorEventController extends Controller
                     'hemoglobin' => $validated['hemoglobin'] ?? $donor->hemoglobin,
                     'blood_pressure' => $validated['blood_pressure'] ?? "{$donor->systolic}/{$donor->diastolic}",
                     'screening_result' => 'passed',
-                    'notes' => "Donasi pada event {$attendance->event->title}. " . ($validated['notes'] ?? ''),
+                    'notes' => "Donasi pada event {$attendance->event->title}. ".($validated['notes'] ?? ''),
                     'officer_id' => auth()->id(),
                 ]);
 
@@ -211,9 +210,9 @@ class DonorEventController extends Controller
         });
 
         $donorName = $attendance->donor->name;
-        $statusMsg = $validated['attendance_status'] === 'present' 
-            ? ($validated['screening_status'] === 'passed' ? "Hadir & Lolos Skrining (Stok Darah +1 Berhasil Dicatat)" : "Hadir (Gagal Skrining)")
-            : "Tercatat Tidak Hadir";
+        $statusMsg = $validated['attendance_status'] === 'present'
+            ? ($validated['screening_status'] === 'passed' ? 'Hadir & Lolos Skrining (Stok Darah +1 Berhasil Dicatat)' : 'Hadir (Gagal Skrining)')
+            : 'Tercatat Tidak Hadir';
 
         return back()->with('success', "Absensi donor {$donorName} berhasil diperbarui: {$statusMsg}.");
     }
@@ -225,7 +224,7 @@ class DonorEventController extends Controller
             'notes' => 'nullable|string',
         ]);
 
-        $regCode = 'REG-' . $event->id . '-' . rand(1000, 9999);
+        $regCode = 'REG-'.$event->id.'-'.rand(1000, 9999);
 
         EventAttendance::create([
             'event_id' => $event->id,
@@ -236,7 +235,6 @@ class DonorEventController extends Controller
             'notes' => $validated['notes'] ?? 'Didaftarkan oleh admin di lokasi event',
         ]);
 
-        return back()->with('success', "Peserta berhasil didaftarkan ke event.");
+        return back()->with('success', 'Peserta berhasil didaftarkan ke event.');
     }
 }
-

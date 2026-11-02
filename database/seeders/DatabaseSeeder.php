@@ -2,19 +2,18 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use App\Models\Donor;
-use App\Models\DonorHistory;
-use App\Models\DonorEvent;
-use App\Models\EventAttendance;
 use App\Models\BloodStock;
-use App\Models\BloodBag;
 use App\Models\BloodStockMutation;
+use App\Models\Donor;
+use App\Models\DonorEvent;
+use App\Models\DonorHistory;
+use App\Models\EventAttendance;
 use App\Models\HospitalRequest;
 use App\Models\ReminderNotification;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-use Carbon\Carbon;
 
 class DatabaseSeeder extends Seeder
 {
@@ -62,7 +61,7 @@ class DatabaseSeeder extends Seeder
 
         foreach ($bloodTypes as $bt) {
             foreach ($rhesuses as $rh) {
-                $combo = $bt . $rh;
+                $combo = $bt.$rh;
                 foreach ($components as $comp) {
                     $units = $stockMatrix[$combo][$comp] ?? 10;
                     BloodStock::updateOrCreate(

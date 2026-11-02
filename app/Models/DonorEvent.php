@@ -43,4 +43,3 @@ class DonorEvent extends Model
         return $this->hasMany(BloodBag::class, 'event_id');
     }
 }
-

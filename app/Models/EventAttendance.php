@@ -32,4 +32,3 @@ class EventAttendance extends Model
         return $this->belongsTo(User::class, 'officer_id');
     }
 }
-

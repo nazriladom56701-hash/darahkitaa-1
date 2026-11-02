@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Carbon\Carbon;
 
 class Donor extends Model
 {
@@ -26,7 +26,7 @@ class Donor extends Model
 
     public function getBloodTypeFullAttribute(): string
     {
-        return $this->blood_type . $this->rhesus;
+        return $this->blood_type.$this->rhesus;
     }
 
     public function getAgeAttribute(): int
@@ -36,9 +36,10 @@ class Donor extends Model
 
     public function getDaysSinceLastDonationAttribute(): ?int
     {
-        if (!$this->last_donation_date) {
+        if (! $this->last_donation_date) {
             return null;
         }
+
         return (int) Carbon::parse($this->last_donation_date)->diffInDays(now());
     }
 
@@ -47,9 +48,10 @@ class Donor extends Model
         if ($this->verification_status === 'suspended') {
             return false;
         }
-        if (!$this->last_donation_date) {
+        if (! $this->last_donation_date) {
             return true;
         }
+
         return $this->days_since_last_donation >= 60;
     }
 
@@ -73,4 +75,3 @@ class Donor extends Model
         return $this->hasMany(BloodBag::class);
     }
 }
-

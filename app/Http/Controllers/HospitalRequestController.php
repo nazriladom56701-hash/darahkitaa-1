@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\HospitalRequest;
 use App\Models\BloodStock;
 use App\Models\BloodStockMutation;
+use App\Models\HospitalRequest;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\DB;
 
 class HospitalRequestController extends Controller
 {
@@ -29,9 +29,9 @@ class HospitalRequestController extends Controller
             $search = $request->input('search');
             $query->where(function ($q) use ($search) {
                 $q->where('hospital_name', 'like', "%{$search}%")
-                  ->orWhere('patient_name', 'like', "%{$search}%")
-                  ->orWhere('request_code', 'like', "%{$search}%")
-                  ->orWhere('medical_record_number', 'like', "%{$search}%");
+                    ->orWhere('patient_name', 'like', "%{$search}%")
+                    ->orWhere('request_code', 'like', "%{$search}%")
+                    ->orWhere('medical_record_number', 'like', "%{$search}%");
             });
         }
 
@@ -48,8 +48,8 @@ class HospitalRequestController extends Controller
 
         // Also fetch current stocks so the admin modal can display current stock availability
         $currentStocks = BloodStock::all()
-            ->keyBy(fn($item) => "{$item->blood_type}_{$item->rhesus}_{$item->component}")
-            ->map(fn($item) => $item->total_units);
+            ->keyBy(fn ($item) => "{$item->blood_type}_{$item->rhesus}_{$item->component}")
+            ->map(fn ($item) => $item->total_units);
 
         return Inertia::render('requests/Index', [
             'requests' => $requests,
@@ -76,7 +76,7 @@ class HospitalRequestController extends Controller
         ]);
 
         $nextId = HospitalRequest::max('id') + 1;
-        $requestCode = 'REQ-RS-' . date('Y') . '-' . str_pad((string)$nextId, 4, '0', STR_PAD_LEFT);
+        $requestCode = 'REQ-RS-'.date('Y').'-'.str_pad((string) $nextId, 4, '0', STR_PAD_LEFT);
 
         HospitalRequest::create(array_merge($validated, [
             'request_code' => $requestCode,
@@ -119,7 +119,7 @@ class HospitalRequestController extends Controller
                 'quantity' => -$hospitalRequest->units_requested,
                 'reference_type' => 'hospital_request',
                 'reference_id' => $hospitalRequest->id,
-                'notes' => "Distribusi darah ke {$hospitalRequest->hospital_name} untuk pasien {$hospitalRequest->patient_name}. " . ($validated['notes'] ?? ''),
+                'notes' => "Distribusi darah ke {$hospitalRequest->hospital_name} untuk pasien {$hospitalRequest->patient_name}. ".($validated['notes'] ?? ''),
                 'officer_id' => auth()->id(),
             ]);
 
@@ -163,4 +163,3 @@ class HospitalRequestController extends Controller
         return back()->with('success', "Permintaan darah {$hospitalRequest->request_code} telah diserahterimakan dan berstatus SELESAI.");
     }
 }
-

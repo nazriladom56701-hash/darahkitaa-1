@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BloodStock;
 use App\Models\Donor;
 use App\Models\DonorEvent;
-use App\Models\BloodStock;
 use App\Models\HospitalRequest;
 use App\Models\ReminderNotification;
+use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
-use Illuminate\Http\RedirectResponse;
 use Symfony\Component\HttpFoundation\StreamedResponse;
-use Carbon\Carbon;
 
 class ReportNotificationController extends Controller
 {
@@ -22,7 +22,7 @@ class ReportNotificationController extends Controller
         $eligibleDonors = Donor::where('verification_status', 'verified')
             ->where(function ($q) {
                 $q->whereNull('last_donation_date')
-                  ->orWhere('last_donation_date', '<=', Carbon::now()->subDays(60));
+                    ->orWhere('last_donation_date', '<=', Carbon::now()->subDays(60));
             })
             ->latest('last_donation_date')
             ->take(15)
@@ -44,7 +44,7 @@ class ReportNotificationController extends Controller
             'donors_ready_recall' => Donor::where('verification_status', 'verified')
                 ->where(function ($q) {
                     $q->whereNull('last_donation_date')
-                      ->orWhere('last_donation_date', '<=', Carbon::now()->subDays(60));
+                        ->orWhere('last_donation_date', '<=', Carbon::now()->subDays(60));
                 })->count(),
         ];
 
@@ -68,10 +68,10 @@ class ReportNotificationController extends Controller
 
         $donor = Donor::findOrFail($validated['donor_id']);
 
-        $message = $validated['custom_message'] ?? 
-            "Halo {$donor->name}, salam kemanusiaan dari DarahKitaa (PMI). Waktu donor darah Anda telah tiba (terakhir donor: " . 
-            ($donor->last_donation_date ? Carbon::parse($donor->last_donation_date)->format('d M Y') : 'belum pernah') . 
-            "). Tubuh Anda siap kembali menyelamatkan nyawa mereka yang membutuhkan. Ayo donor darah hari ini!";
+        $message = $validated['custom_message'] ??
+            "Halo {$donor->name}, salam kemanusiaan dari DarahKitaa (PMI). Waktu donor darah Anda telah tiba (terakhir donor: ".
+            ($donor->last_donation_date ? Carbon::parse($donor->last_donation_date)->format('d M Y') : 'belum pernah').
+            '). Tubuh Anda siap kembali menyelamatkan nyawa mereka yang membutuhkan. Ayo donor darah hari ini!';
 
         $notification = ReminderNotification::create([
             'recipient_type' => 'donor',
@@ -90,9 +90,9 @@ class ReportNotificationController extends Controller
         // Clean phone for whatsapp
         $cleanPhone = preg_replace('/[^0-9]/', '', $donor->phone);
         if (str_starts_with($cleanPhone, '0')) {
-            $cleanPhone = '62' . substr($cleanPhone, 1);
+            $cleanPhone = '62'.substr($cleanPhone, 1);
         }
-        $waLink = "https://wa.me/{$cleanPhone}?text=" . rawurlencode($message);
+        $waLink = "https://wa.me/{$cleanPhone}?text=".rawurlencode($message);
 
         return back()->with([
             'success' => "Pengingat berhasil dicatat dan dikirimkan ke {$donor->name}.",
@@ -113,10 +113,10 @@ class ReportNotificationController extends Controller
         $query = Donor::where('verification_status', 'verified')
             ->where(function ($q) {
                 $q->whereNull('last_donation_date')
-                  ->orWhere('last_donation_date', '<=', Carbon::now()->subDays(60));
+                    ->orWhere('last_donation_date', '<=', Carbon::now()->subDays(60));
             });
 
-        if (!empty($validated['blood_type'])) {
+        if (! empty($validated['blood_type'])) {
             $query->where('blood_type', $validated['blood_type']);
         }
 
@@ -149,7 +149,7 @@ class ReportNotificationController extends Controller
     public function exportCsv(Request $request): StreamedResponse
     {
         $type = $request->input('type', 'donors');
-        $filename = "darahkitaa-{$type}-" . date('Ymd_His') . ".csv";
+        $filename = "darahkitaa-{$type}-".date('Ymd_His').'.csv';
 
         return response()->streamDownload(function () use ($type) {
             $output = fopen('php://output', 'w');
@@ -214,4 +214,3 @@ class ReportNotificationController extends Controller
         ]);
     }
 }
-

@@ -15,7 +15,7 @@ class BloodStock extends Model
 
     public function getBloodTypeFullAttribute(): string
     {
-        return $this->blood_type . $this->rhesus;
+        return $this->blood_type.$this->rhesus;
     }
 
     public function getStatusLevelAttribute(): string
@@ -26,7 +26,7 @@ class BloodStock extends Model
         if ($this->total_units <= $this->min_threshold) {
             return 'warning'; // Kuning
         }
+
         return 'safe'; // Hijau
     }
 }
-

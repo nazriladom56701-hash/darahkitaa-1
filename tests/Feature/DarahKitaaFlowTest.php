@@ -2,15 +2,12 @@
 
 namespace Tests\Feature;
 
-use App\Models\User;
+use App\Models\BloodStock;
 use App\Models\Donor;
 use App\Models\DonorEvent;
 use App\Models\EventAttendance;
-use App\Models\BloodStock;
-use App\Models\BloodBag;
-use App\Models\BloodStockMutation;
 use App\Models\HospitalRequest;
-use App\Models\ReminderNotification;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -23,7 +20,7 @@ class DarahKitaaFlowTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        
+
         $this->admin = User::factory()->create([
             'name' => 'Admin PMI',
             'email' => 'admin@darahkita.id',
@@ -215,7 +212,7 @@ class DarahKitaaFlowTest extends TestCase
         ]);
 
         $response->assertSessionHas('success');
-        
+
         $this->assertDatabaseHas('hospital_requests', [
             'id' => $request->id,
             'status' => 'approved',
@@ -298,4 +295,3 @@ class DarahKitaaFlowTest extends TestCase
         $exportResponse->assertOk();
     }
 }
-

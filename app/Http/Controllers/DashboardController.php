@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Donor;
-use App\Models\DonorEvent;
 use App\Models\BloodStock;
 use App\Models\BloodStockMutation;
+use App\Models\Donor;
+use App\Models\DonorEvent;
 use App\Models\HospitalRequest;
-use App\Models\ReminderNotification;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -21,7 +20,7 @@ class DashboardController extends Controller
         $totalDonors = Donor::count();
         $verifiedDonors = Donor::where('verification_status', 'verified')->count();
         $pendingVerificationDonors = Donor::where('verification_status', 'pending')->count();
-        
+
         $activeEventsCount = DonorEvent::whereIn('status', ['upcoming', 'ongoing'])->count();
         $pendingRequestsCount = HospitalRequest::where('status', 'pending')->count();
         $emergencyRequestsCount = HospitalRequest::where('status', 'pending')->where('urgency', 'emergency')->count();
@@ -33,11 +32,11 @@ class DashboardController extends Controller
         foreach ($bloodGroups as $group) {
             $type = substr($group, 0, -1);
             $rhesus = substr($group, -1);
-            
+
             $stocks = BloodStock::where('blood_type', $type)->where('rhesus', $rhesus)->get();
             $totalUnits = $stocks->sum('total_units');
             $minThreshold = $stocks->max('min_threshold') ?? 10;
-            
+
             $status = 'safe';
             if ($totalUnits <= ($minThreshold / 2)) {
                 $status = 'critical';
@@ -81,7 +80,7 @@ class DashboardController extends Controller
         $eligibleForRecallCount = Donor::where('verification_status', 'verified')
             ->where(function ($q) {
                 $q->whereNull('last_donation_date')
-                  ->orWhere('last_donation_date', '<=', now()->subDays(60));
+                    ->orWhere('last_donation_date', '<=', now()->subDays(60));
             })->count();
 
         return Inertia::render('Dashboard', [
@@ -102,4 +101,3 @@ class DashboardController extends Controller
         ]);
     }
 }
-

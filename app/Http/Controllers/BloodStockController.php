@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\BloodStock;
 use App\Models\BloodStockMutation;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\DB;
 
 class BloodStockController extends Controller
 {
@@ -22,9 +22,9 @@ class BloodStockController extends Controller
 
         // Calculate summary cards
         $totalUnits = $stocks->sum('total_units');
-        $criticalStocks = $stocks->filter(fn($s) => $s->status_level === 'critical')->count();
-        $warningStocks = $stocks->filter(fn($s) => $s->status_level === 'warning')->count();
-        $safeStocks = $stocks->filter(fn($s) => $s->status_level === 'safe')->count();
+        $criticalStocks = $stocks->filter(fn ($s) => $s->status_level === 'critical')->count();
+        $warningStocks = $stocks->filter(fn ($s) => $s->status_level === 'warning')->count();
+        $safeStocks = $stocks->filter(fn ($s) => $s->status_level === 'safe')->count();
 
         // Blood groups overview
         $bloodGroups = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
@@ -34,7 +34,7 @@ class BloodStockController extends Controller
             $type = substr($bg, 0, -1);
             $rhesus = substr($bg, -1);
             $items = $stocks->where('blood_type', $type)->where('rhesus', $rhesus);
-            
+
             $groupedStocks[] = [
                 'blood_type' => $type,
                 'rhesus' => $rhesus,
@@ -120,4 +120,3 @@ class BloodStockController extends Controller
         return back()->with('success', "Update stok kantong darah {$validated['blood_type']}{$validated['rhesus']} ({$validated['component']}) berhasil disimpan.");
     }
 }
-

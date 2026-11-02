@@ -20,7 +20,7 @@ class HospitalRequest extends Model
 
     public function getBloodTypeFullAttribute(): string
     {
-        return $this->blood_type . $this->rhesus;
+        return $this->blood_type.$this->rhesus;
     }
 
     public function officer(): BelongsTo
@@ -28,4 +28,3 @@ class HospitalRequest extends Model
         return $this->belongsTo(User::class, 'action_by');
     }
 }
-

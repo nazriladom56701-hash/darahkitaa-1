@@ -1,12 +1,12 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BloodStockController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DonorController;
 use App\Http\Controllers\DonorEventController;
-use App\Http\Controllers\BloodStockController;
 use App\Http\Controllers\HospitalRequestController;
 use App\Http\Controllers\ReportNotificationController;
+use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'Welcome')->name('home');
 
