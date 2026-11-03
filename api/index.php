@@ -1,6 +1,6 @@
 <?php
 
-// Buat struktur folder temporer di /tmp
+// Buat direktori temporer untuk Vercel Serverless
 $directories = [
     '/tmp/storage/app/public',
     '/tmp/storage/framework/views',
@@ -16,7 +16,6 @@ foreach ($directories as $dir) {
     }
 }
 
-// Set environment variable & konstanta storage sebelum instansiasi Laravel
 $_ENV['APP_STORAGE'] = '/tmp/storage';
 putenv('APP_STORAGE=/tmp/storage');
 putenv('VIEW_COMPILED_PATH=/tmp/storage/framework/views');
