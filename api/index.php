@@ -1,6 +1,6 @@
 <?php
 
-// Buat struktur folder temporer di /tmp jika belum ada
+// Buat struktur folder temporer di /tmp
 $directories = [
     '/tmp/storage/app/public',
     '/tmp/storage/framework/views',
@@ -16,7 +16,8 @@ foreach ($directories as $dir) {
     }
 }
 
-// Redirect direktori storage & bootstrap cache ke /tmp
+// Set environment variable & konstanta storage sebelum instansiasi Laravel
+$_ENV['APP_STORAGE'] = '/tmp/storage';
 putenv('APP_STORAGE=/tmp/storage');
 putenv('VIEW_COMPILED_PATH=/tmp/storage/framework/views');
 putenv('APP_SERVICES_CACHE=/tmp/bootstrap/cache/services.php');
